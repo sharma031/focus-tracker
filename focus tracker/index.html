@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo">
+                <span class="tracker-icon"></span>
+                <h1>Focus Tracker</h1>
+            </div>
+            <button id="reset-app-btn" class="btn-text" aria-label="Reset all data">Reset Data</button>
+        </header>
+
+        <!-- DASHBOARD VIEW -->
+        <section id="dashboard-view" class="view active">
+            <div class="card intro-card">
+                <h2>Start a Focus Session</h2>
+                <form id="session-form">
+                    <div class="form-group">
+                        <label for="task-name">Task Name</label>
+                        <input type="text" id="task-name" placeholder="What are you working on?" required autocomplete="off">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="duration">Duration (minutes)</label>
+                            <input type="number" id="duration" min="1" max="120" value="25" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="idle-threshold">Idle Alert (seconds)</label>
+                            <input type="number" id="idle-threshold" min="30" max="600" value="60">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-lg">Start Focus</button>
+                </form>
+            </div>
+
+            <div class="history-section">
+                <h3>Recent Sessions</h3>
+                <div id="stats-summary" class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Focus</span>
+                        <span class="stat-value" id="total-focus-time">0h 0m</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Avg Score</span>
+                        <span class="stat-value" id="avg-focus-score">-</span>
+                    </div>
+                </div>
+                <ul id="history-list" class="history-list">
+                    <!-- History items injected here -->
+                    <li class="empty-state">No sessions yet. Start focusing!</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ACTIVE SESSION VIEW -->
+        <section id="active-session-view" class="view hidden">
+            <div class="timer-container">
+                <div class="status-badge" id="session-status">FOCUSED</div>
+                <div class="timer-ring">
+                    <!-- SVG Ring can go here implemented in CSS/JS or simple text for now -->
+                    <div class="timer-display" id="timer-display">25:00</div>
+                </div>
+                <h2 id="active-task-name">Reading Documentation</h2>
+            </div>
+
+            <div class="live-stats">
+                <div class="live-stat">
+                    <span class="icon">👀</span>
+                    <span id="distraction-count">0</span> Distractions
+                </div>
+                <div class="live-stat">
+                    <span class="icon">💤</span>
+                    <span id="idle-time-display">00:00</span> Idle
+                </div>
+            </div>
+
+            <button id="end-session-btn" class="btn-danger">End Session</button>
+        </section>
+
+        <!-- SUMMARY VIEW -->
+        <section id="summary-view" class="view hidden">
+            <div class="summary-card">
+                <h2>Session Complete</h2>
+                <div class="score-display">
+                    <span class="score-value" id="final-score">85</span>
+                    <span class="score-label">Focus Score</span>
+                </div>
+
+                <div class="summary-details">
+                    <div class="detail-row">
+                        <span>Task</span>
+                        <strong id="summary-task">Reading</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Duration</span>
+                        <strong id="summary-duration">25m</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Distractions</span>
+                        <strong id="summary-distractions">2</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Idle Time</span>
+                        <strong id="summary-idle">1m 30s</strong>
+                    </div>
+                </div>
+
+                <button id="back-to-dashboard-btn" class="btn-primary">Back to Dashboard</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
